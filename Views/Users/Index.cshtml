@@ -16,6 +16,28 @@
 
 <div class="row">
     <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Email</td>
+                    <td>Name</td>
+                    <td>Phone</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var user in Model)
+                {
+                <tr>
+                    <td>@user.Email</td>
+                    <td>@user.Name</td>
+                    <td>@user.Phone</td>
+                </tr>
+
+                }
+
+            </tbody>
+        </table>
 
     </div>
 
