@@ -1,0 +1,55 @@
+﻿@using ASPExcel.Models
+@model ImportExcel
+
+<div class="row">
+    <div class="col-md-6">
+        <a asp-action="ExportToExcel" asp-controller="Users" class="btn btn-primary">
+            Export to Excel
+        </a>
+    </div>
+
+    <div class="col-md-6">
+        <a asp-action="BatchUserUpload" asp-controller="Users" class="btn btn-primary">
+            Import from Excel
+        </a>
+    </div>
+</div>
+
+<div>
+    @($"Ошибок при импорте: {Model.ErrorsTotal}")
+    <div>
+        @foreach (PhoneBrand phoneBrand in Model.PBs)
+        {
+            int pricePositionsCounter = 0;
+            <h3>
+                Бренд: @phoneBrand.Title
+            </h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Неисправность</th>
+                        @foreach (PhoneModel phoneModel in phoneBrand.PhoneModels)
+                        {
+                            <th>@phoneModel.Title</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (PricePosition pricePosition in phoneBrand.PhoneModels[0].PricePositions)
+                    {
+                        <tr>
+                            <td>
+                                @pricePosition.Problem
+                            </td>
+                            @foreach (PhoneModel phoneModel in phoneBrand.PhoneModels)
+                            {
+                                <td>@phoneModel.PricePositions[pricePositionsCounter].Price</td>
+                            }
+                        </tr>
+                        pricePositionsCounter++;
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
